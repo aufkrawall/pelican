@@ -109,6 +109,7 @@
   a.card:hover::before { opacity: 1; }
 
   .thumb {
+    position: relative;
     border-radius: 12px;
     overflow: hidden;
     aspect-ratio: 16 / 10;
@@ -116,9 +117,16 @@
     background: #060a14;
     transition: transform 0.25s ease;
   }
+  /* Render each scene at a fixed design viewport (1280x800 = the thumb's
+     16/10 aspect), then scale down. The scene files size their SVG in
+     different ways (100vw/100vh, fixed width/height attrs, aspect-ratio +
+     slice), so only a real desktop-sized viewport shows them as intended. */
   .thumb iframe {
-    width: 100%; height: 100%;
-    border: 0; display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 1280px; height: 800px;
+    border: 0;
+    transform-origin: top left;
     pointer-events: none; /* whole card is the link */
   }
   a.card:hover .thumb { transform: scale(1.015); }
@@ -269,5 +277,26 @@
   </footer>
 
 </div>
+<script>
+(function () {
+  var DESIGN_W = 1280;
+  var thumbs = Array.prototype.slice.call(document.querySelectorAll('.thumb'));
+  function fit() {
+    for (var i = 0; i < thumbs.length; i++) {
+      var t = thumbs[i];
+      var f = t.querySelector('iframe');
+      if (f && t.clientWidth) {
+        f.style.transform = 'scale(' + (t.clientWidth / DESIGN_W) + ')';
+      }
+    }
+  }
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(fit);
+    thumbs.forEach(function (t) { ro.observe(t); });
+  }
+  window.addEventListener('resize', fit);
+  fit();
+})();
+</script>
 </body>
 </html>
