@@ -4,12 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>pelican — plug &amp; play</title>
-<meta name="description" content="Single-file animated SVGs of a pelican riding a bicycle. Click to open live.">
+<meta name="description" content="Single-file animated SVGs of a pelican riding a bicycle. Click a card to open it live.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🦩%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aufkrawall.github.io/pelican/">
+<meta property="og:title" content="pelican — plug & play animated SVGs">
+<meta property="og:description" content="A pelican riding a bicycle as single-file animated SVGs. Click a card and it just plays.">
+<meta property="og:image" content="https://aufkrawall.github.io/pelican/preview.svg">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #0a0f1e;
     --ink: #e8eefc;
-    --muted: #8b96b3;
+    --muted: #97a2c0;
     --card: rgba(255, 255, 255, 0.04);
     --line: rgba(255, 255, 255, 0.09);
     --accent-a: #7dd3fc;
@@ -30,8 +37,13 @@
   }
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 4rem; }
 
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
   /* ---------- hero ---------- */
-  header.hero { text-align: center; padding: 5.5rem 0 3.5rem; position: relative; }
+  header.hero { text-align: center; padding: 5rem 0 3.25rem; }
+  header.hero > * { animation: rise 0.6s cubic-bezier(0.22, 0.8, 0.3, 1) backwards; }
+  header.hero > *:nth-child(2) { animation-delay: 0.08s; }
+  header.hero > *:nth-child(3) { animation-delay: 0.16s; }
   .bike { width: 150px; height: auto; margin-bottom: 1.25rem; filter: drop-shadow(0 6px 18px rgba(125, 211, 252, 0.25)); }
   .wheel { animation: spin 1.6s linear infinite; transform-box: fill-box; transform-origin: center; }
   @keyframes spin { to { transform: rotate(360deg); } }
@@ -53,12 +65,12 @@
   .grid {
     display: grid;
     gap: 1.1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
   a.card {
     position: relative;
-    display: flex; flex-direction: column; gap: 0.6rem;
-    padding: 1.35rem 1.4rem 1.15rem;
+    display: flex; flex-direction: column; gap: 0.7rem;
+    padding: 0.8rem 0.8rem 1.15rem;
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 18px;
@@ -66,7 +78,15 @@
     color: var(--ink);
     backdrop-filter: blur(8px);
     transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    animation: rise 0.55s cubic-bezier(0.22, 0.8, 0.3, 1) backwards;
   }
+  .grid a.card:nth-child(1) { animation-delay: 0.10s; }
+  .grid a.card:nth-child(2) { animation-delay: 0.16s; }
+  .grid a.card:nth-child(3) { animation-delay: 0.22s; }
+  .grid a.card:nth-child(4) { animation-delay: 0.28s; }
+  .grid a.card:nth-child(5) { animation-delay: 0.34s; }
+  .grid a.card:nth-child(6) { animation-delay: 0.40s; }
+  .grid a.card:nth-child(7) { animation-delay: 0.46s; }
   a.card::before {
     content: "";
     position: absolute; inset: -1px;
@@ -87,6 +107,23 @@
     box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
   }
   a.card:hover::before { opacity: 1; }
+
+  .thumb {
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--line);
+    background: #060a14;
+    transition: transform 0.25s ease;
+  }
+  .thumb iframe {
+    width: 100%; height: 100%;
+    border: 0; display: block;
+    pointer-events: none; /* whole card is the link */
+  }
+  a.card:hover .thumb { transform: scale(1.015); }
+
+  .card-body { display: flex; flex-direction: column; gap: 0.55rem; padding: 0 0.55rem; }
   .card-top { display: flex; align-items: center; gap: 0.6rem; }
   .dot {
     width: 10px; height: 10px; border-radius: 50%;
@@ -95,14 +132,10 @@
     flex: none;
   }
   .name { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; flex: 1; }
-  .arrow {
-    color: var(--muted);
-    font-size: 1.05rem;
-    transition: transform 0.18s ease, color 0.18s ease;
-  }
+  .arrow { color: var(--muted); font-size: 1.05rem; transition: transform 0.18s ease, color 0.18s ease; }
   a.card:hover .arrow { transform: translate(3px, -3px); color: var(--accent-a); }
   .meta { margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.45; }
-  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.15rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .chip {
     font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
     color: #c7d2ea;
@@ -112,26 +145,20 @@
     background: rgba(255, 255, 255, 0.03);
   }
   code.file {
-    margin-top: 0.35rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.7rem;
-    color: rgba(139, 150, 179, 0.75);
+    color: var(--muted);
     word-break: break-all;
   }
 
   /* ---------- footer ---------- */
-  footer {
-    margin-top: 3.5rem;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
+  footer { margin-top: 3.5rem; text-align: center; color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
   footer a { color: var(--accent-a); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
 
   @media (prefers-reduced-motion: reduce) {
-    .wheel { animation: none; }
-    a.card, a.card::before, .arrow { transition: none; }
+    .wheel, a.card, header.hero > * { animation: none; }
+    a.card, a.card::before, .arrow, .thumb { transition: none; }
   }
 </style>
 </head>
@@ -160,63 +187,84 @@
       <circle cx="78" cy="60" r="4" fill="#fbbf24"/>
     </svg>
     <h1>pelican</h1>
-    <p class="tagline">A pelican riding a bicycle, as <b>single-file animated SVGs</b> generated by different models. No build, no install — <b>click a card and it just plays</b>.</p>
+    <p class="tagline">A pelican riding a bicycle, as <b>single-file animated SVGs</b> generated by different models. No build, no install — <b>hover a card to see it move, click to open it live</b>.</p>
   </header>
 
   <main class="grid">
     <a class="card" style="--c:#87cefa" href="gemini4hydrogenxhighaistudcodeexec.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">Gemini 4 “Hydrogen”</span><span class="arrow">↗</span></div>
-      <p class="meta">Bright sky-blue scene, full-screen ride.</p>
-      <div class="chips"><span class="chip">x-high reasoning</span><span class="chip">AI Studio</span><span class="chip">code exec</span></div>
-      <code class="file">gemini4hydrogenxhighaistudcodeexec.html</code>
+      <div class="thumb"><iframe src="gemini4hydrogenxhighaistudcodeexec.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">Gemini 4 “Hydrogen”</span><span class="arrow">↗</span></div>
+        <p class="meta">Bright sky-blue scene, full-screen ride.</p>
+        <div class="chips"><span class="chip">x-high reasoning</span><span class="chip">AI Studio</span><span class="chip">code exec</span></div>
+        <code class="file">gemini4hydrogenxhighaistudcodeexec.html</code>
+      </div>
     </a>
 
     <a class="card" style="--c:#d35334" href="gemini4neonxhighaistudcodeexec.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">Gemini 4 “Neon”</span><span class="arrow">↗</span></div>
-      <p class="meta">Same ride, warmer ember accents.</p>
-      <div class="chips"><span class="chip">x-high</span><span class="chip">AI Studio</span><span class="chip">code exec</span></div>
-      <code class="file">gemini4neonxhighaistudcodeexec.html</code>
+      <div class="thumb"><iframe src="gemini4neonxhighaistudcodeexec.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">Gemini 4 “Neon”</span><span class="arrow">↗</span></div>
+        <p class="meta">Same ride, warmer ember accents.</p>
+        <div class="chips"><span class="chip">x-high</span><span class="chip">AI Studio</span><span class="chip">code exec</span></div>
+        <code class="file">gemini4neonxhighaistudcodeexec.html</code>
+      </div>
     </a>
 
     <a class="card" style="--c:#a7f3d0" href="glm53flashmaxvibe.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">GLM 5.3 Flash</span><span class="arrow">↗</span></div>
-      <p class="meta">Lean and quick — the “pelican express”.</p>
-      <div class="chips"><span class="chip">max</span><span class="chip">Vibe</span></div>
-      <code class="file">glm53flashmaxvibe.html</code>
+      <div class="thumb"><iframe src="glm53flashmaxvibe.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">GLM 5.3 Flash</span><span class="arrow">↗</span></div>
+        <p class="meta">Lean and quick — the “pelican express”.</p>
+        <div class="chips"><span class="chip">max</span><span class="chip">Vibe</span></div>
+        <code class="file">glm53flashmaxvibe.html</code>
+      </div>
     </a>
 
     <a class="card" style="--c:#bfe3ff" href="glm53maxvibe.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">GLM 5.3</span><span class="arrow">↗</span></div>
-      <p class="meta">Soft daylight palette, easy cruising.</p>
-      <div class="chips"><span class="chip">max</span><span class="chip">Vibe</span></div>
-      <code class="file">glm53maxvibe.html</code>
+      <div class="thumb"><iframe src="glm53maxvibe.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">GLM 5.3</span><span class="arrow">↗</span></div>
+        <p class="meta">Soft daylight palette, easy cruising.</p>
+        <div class="chips"><span class="chip">max</span><span class="chip">Vibe</span></div>
+        <code class="file">glm53maxvibe.html</code>
+      </div>
     </a>
 
     <a class="card" style="--c:#f6a24d" href="gpt60solhighbrowser.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">GPT 6.0 “Sol”</span><span class="arrow">↗</span></div>
-      <p class="meta">“Just another day in pelican traffic.”</p>
-      <div class="chips"><span class="chip">high</span><span class="chip">browser</span></div>
-      <code class="file">gpt60solhighbrowser.html</code>
+      <div class="thumb"><iframe src="gpt60solhighbrowser.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">GPT 6.0 “Sol”</span><span class="arrow">↗</span></div>
+        <p class="meta">“Just another day in pelican traffic.”</p>
+        <div class="chips"><span class="chip">high</span><span class="chip">browser</span></div>
+        <code class="file">gpt60solhighbrowser.html</code>
+      </div>
     </a>
 
     <a class="card" style="--c:#ce8159" href="gpt61solxhighcodex.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">GPT 6.1 “Sol”</span><span class="arrow">↗</span></div>
-      <p class="meta">Typewriter vibes — “Coasting along, The Pelican Pedal Club”.</p>
-      <div class="chips"><span class="chip">x-high</span><span class="chip">Codex</span></div>
-      <code class="file">gpt61solxhighcodex.html</code>
+      <div class="thumb"><iframe src="gpt61solxhighcodex.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">GPT 6.1 “Sol”</span><span class="arrow">↗</span></div>
+        <p class="meta">Typewriter vibes — “Coasting along, The Pelican Pedal Club”.</p>
+        <div class="chips"><span class="chip">x-high</span><span class="chip">Codex</span></div>
+        <code class="file">gpt61solxhighcodex.html</code>
+      </div>
     </a>
 
     <a class="card" style="--c:#aee3ff" href="mistral4largehighvibe.html" target="_blank" rel="noopener">
-      <div class="card-top"><span class="dot"></span><span class="name">Mistral 4 Large</span><span class="arrow">↗</span></div>
-      <p class="meta">The classic: full-viewport animated pelican ride.</p>
-      <div class="chips"><span class="chip">high</span><span class="chip">Vibe</span></div>
-      <code class="file">mistral4largehighvibe.html</code>
+      <div class="thumb"><iframe src="mistral4largehighvibe.html" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
+      <div class="card-body">
+        <div class="card-top"><span class="dot"></span><span class="name">Mistral 4 Large</span><span class="arrow">↗</span></div>
+        <p class="meta">The classic: full-viewport animated pelican ride.</p>
+        <div class="chips"><span class="chip">high</span><span class="chip">Vibe</span></div>
+        <code class="file">mistral4largehighvibe.html</code>
+      </div>
     </a>
   </main>
 
   <footer>
     source on <a href="https://github.com/aufkrawall/pelican">github.com/aufkrawall/pelican</a> ·
-    each file is a self-contained .html — also playable via
+    each card above is a <b>live</b> embed of a self-contained .html — also playable via
     <a href="https://raw.githack.com/aufkrawall/pelican/main/mistral4largehighvibe.html">raw.githack.com</a>
   </footer>
 

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a0f1e"/>
+      <stop offset="0.7" stop-color="#12203f"/>
+      <stop offset="1" stop-color="#1b2f57"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#sky)"/>
+  <circle cx="950" cy="140" r="150" fill="url(#sun)"/>
+  <circle cx="950" cy="140" r="55" fill="#fbbf24"/>
+  <rect x="0" y="520" width="1200" height="110" fill="#0d1526"/>
+  <line x1="0" y1="520" x2="1200" y2="520" stroke="#7dd3fc" stroke-opacity="0.4" stroke-width="3"/>
+
+  <!-- bicycle -->
+  <g stroke="#7dd3fc" stroke-width="10" fill="none" stroke-linecap="round">
+    <circle cx="430" cy="470" r="62"/>
+    <circle cx="770" cy="470" r="62"/>
+    <path d="M430 470 L560 330 L720 330 L770 470 L600 470 L430 470"/>
+    <path d="M560 330 L520 470"/>
+    <path d="M545 312 L585 312"/>
+    <path d="M712 312 L745 322"/>
+  </g>
+  <circle cx="600" cy="470" r="12" fill="#fbbf24"/>
+
+  <!-- pelican -->
+  <g>
+    <ellipse cx="590" cy="250" rx="95" ry="70" fill="#e8eefc"/>
+    <ellipse cx="560" cy="270" rx="55" ry="38" fill="#c9d6ee"/>
+    <circle cx="665" cy="195" r="42" fill="#e8eefc"/>
+    <path d="M698 190 L830 215 L698 228 Z" fill="#f6a24d"/>
+    <path d="M700 228 L790 250 L706 244 Z" fill="#e08a3c"/>
+    <circle cx="676" cy="188" r="6" fill="#0a0f1e"/>
+    <path d="M540 210 Q500 260 545 300 Q585 260 570 215 Z" fill="#dfe8f8"/>
+    <path d="M560 320 L545 380 M610 322 L625 380" stroke="#f6a24d" stroke-width="10" stroke-linecap="round"/>
+  </g>
+
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="54" font-weight="800" fill="#e8eefc" letter-spacing="-2">pelican</text>
+  <text x="600" y="600" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" fill="#97a2c0">single-file animated SVGs — click &amp; play</text>
+</svg>
