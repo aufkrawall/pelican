@@ -4,46 +4,222 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>pelican — plug &amp; play</title>
+<meta name="description" content="Single-file animated SVGs of a pelican riding a bicycle. Click to open live.">
 <style>
-  html, body { margin: 0; min-height: 100%; }
-  body {
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    background: linear-gradient(180deg, #aee3ff 0%, #e8f7ff 100%);
-    color: #123;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 4rem 1rem;
+  :root {
+    --bg: #0a0f1e;
+    --ink: #e8eefc;
+    --muted: #8b96b3;
+    --card: rgba(255, 255, 255, 0.04);
+    --line: rgba(255, 255, 255, 0.09);
+    --accent-a: #7dd3fc;
+    --accent-b: #fbbf24;
   }
-  h1 { font-size: 2rem; margin: 0 0 .25rem; }
-  p.sub { margin: 0 0 2rem; opacity: .7; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background:
+      radial-gradient(60rem 30rem at 15% -10%, rgba(125, 211, 252, 0.16), transparent 60%),
+      radial-gradient(50rem 28rem at 90% 0%, rgba(251, 191, 36, 0.10), transparent 60%),
+      radial-gradient(70rem 40rem at 50% 120%, rgba(99, 102, 241, 0.14), transparent 60%),
+      var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  /* ---------- hero ---------- */
+  header.hero { text-align: center; padding: 5.5rem 0 3.5rem; position: relative; }
+  .bike { width: 150px; height: auto; margin-bottom: 1.25rem; filter: drop-shadow(0 6px 18px rgba(125, 211, 252, 0.25)); }
+  .wheel { animation: spin 1.6s linear infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 7vw, 4.6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    background: linear-gradient(92deg, var(--accent-a) 10%, #e8eefc 45%, var(--accent-b) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tagline { margin: 1rem auto 0; max-width: 34rem; color: var(--muted); font-size: 1.05rem; line-height: 1.6; }
+  .tagline b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- grid & cards ---------- */
   .grid {
-    display: grid; gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    width: min(960px, 100%);
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
   a.card {
-    display: block; padding: 1.25rem 1.5rem;
-    background: rgba(255,255,255,.85); border-radius: 14px;
-    text-decoration: none; color: #0b3d91;
-    box-shadow: 0 4px 14px rgba(20,60,120,.12);
-    transition: transform .15s ease, box-shadow .15s ease;
+    position: relative;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    padding: 1.35rem 1.4rem 1.15rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    text-decoration: none;
+    color: var(--ink);
+    backdrop-filter: blur(8px);
+    transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
   }
-  a.card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(20,60,120,.2); }
-  a.card .name { display: block; font-size: 1.15rem; font-weight: 700; }
-  a.card .meta { display: block; margin-top: .35rem; font-size: .85rem; opacity: .7; }
-  a.card code { display: block; margin-top: .5rem; font-size: .72rem; opacity: .5; word-break: break-all; }
+  a.card::before {
+    content: "";
+    position: absolute; inset: -1px;
+    border-radius: 19px;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--c, var(--accent-a)), transparent 45%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    pointer-events: none;
+  }
+  a.card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.065);
+    border-color: transparent;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  }
+  a.card:hover::before { opacity: 1; }
+  .card-top { display: flex; align-items: center; gap: 0.6rem; }
+  .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--c, var(--accent-a));
+    box-shadow: 0 0 12px var(--c, var(--accent-a));
+    flex: none;
+  }
+  .name { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; flex: 1; }
+  .arrow {
+    color: var(--muted);
+    font-size: 1.05rem;
+    transition: transform 0.18s ease, color 0.18s ease;
+  }
+  a.card:hover .arrow { transform: translate(3px, -3px); color: var(--accent-a); }
+  .meta { margin: 0; color: var(--muted); font-size: 0.88rem; line-height: 1.45; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.15rem; }
+  .chip {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+    color: #c7d2ea;
+    padding: 0.22rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  code.file {
+    margin-top: 0.35rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    color: rgba(139, 150, 179, 0.75);
+    word-break: break-all;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 3.5rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--accent-a); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wheel { animation: none; }
+    a.card, a.card::before, .arrow { transition: none; }
+  }
 </style>
 </head>
 <body>
-  <h1>🦩 pelican on a bicycle 🚲</h1>
-  <p class="sub">single-file animated SVGs — click to open live</p>
-  <div class="grid">
-    <a class="card" href="gemini4hydrogenxhighaistudcodeexec.html"><span class="name">Gemini 4 “Hydrogen”</span><span class="meta">x-high reasoning · AI Studio · code exec</span><code>gemini4hydrogenxhighaistudcodeexec.html</code></a>
-    <a class="card" href="gemini4neonxhighaistudcodeexec.html"><span class="name">Gemini 4 “Neon”</span><span class="meta">x-high · AI Studio · code exec</span><code>gemini4neonxhighaistudcodeexec.html</code></a>
-    <a class="card" href="glm53flashmaxvibe.html"><span class="name">GLM 5.3 Flash</span><span class="meta">max · Vibe</span><code>glm53flashmaxvibe.html</code></a>
-    <a class="card" href="glm53maxvibe.html"><span class="name">GLM 5.3</span><span class="meta">max · Vibe</span><code>glm53maxvibe.html</code></a>
-    <a class="card" href="gpt60solhighbrowser.html"><span class="name">GPT 6.0 “Sol”</span><span class="meta">high · browser — “just another day in pelican traffic”</span><code>gpt60solhighbrowser.html</code></a>
-    <a class="card" href="gpt61solxhighcodex.html"><span class="name">GPT 6.1 “Sol”</span><span class="meta">x-high · Codex — “coasting along, Pelican Pedal Club”</span><code>gpt61solxhighcodex.html</code></a>
-    <a class="card" href="mistral4largehighvibe.html"><span class="name">Mistral 4 Large</span><span class="meta">high · Vibe</span><code>mistral4largehighvibe.html</code></a>
-  </div>
+<div class="wrap">
+
+  <header class="hero">
+    <svg class="bike" viewBox="0 0 150 84" fill="none" aria-hidden="true">
+      <g stroke="#7dd3fc" stroke-width="3" stroke-linecap="round">
+        <circle cx="30" cy="60" r="19" opacity="0.9"/>
+        <circle cx="120" cy="60" r="19" opacity="0.9"/>
+        <path d="M30 60 L62 26 L96 26 L120 60 L78 60 L30 60"/>
+        <path d="M62 26 L52 60"/>
+        <path d="M96 26 L120 60"/>
+        <path d="M58 20 L70 20"/>
+        <path d="M92 18 L104 22"/>
+      </g>
+      <g class="wheel" stroke="#e8eefc" stroke-width="2" stroke-linecap="round">
+        <line x1="30" y1="44" x2="30" y2="76"/><line x1="14" y1="60" x2="46" y2="60"/>
+        <line x1="19" y1="49" x2="41" y2="71"/><line x1="41" y1="49" x2="19" y2="71"/>
+      </g>
+      <g class="wheel" stroke="#fbbf24" stroke-width="2" stroke-linecap="round">
+        <line x1="120" y1="44" x2="120" y2="76"/><line x1="104" y1="60" x2="136" y2="60"/>
+        <line x1="109" y1="49" x2="131" y2="71"/><line x1="131" y1="49" x2="109" y2="71"/>
+      </g>
+      <circle cx="78" cy="60" r="4" fill="#fbbf24"/>
+    </svg>
+    <h1>pelican</h1>
+    <p class="tagline">A pelican riding a bicycle, as <b>single-file animated SVGs</b> generated by different models. No build, no install — <b>click a card and it just plays</b>.</p>
+  </header>
+
+  <main class="grid">
+    <a class="card" style="--c:#87cefa" href="gemini4hydrogenxhighaistudcodeexec.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">Gemini 4 “Hydrogen”</span><span class="arrow">↗</span></div>
+      <p class="meta">Bright sky-blue scene, full-screen ride.</p>
+      <div class="chips"><span class="chip">x-high reasoning</span><span class="chip">AI Studio</span><span class="chip">code exec</span></div>
+      <code class="file">gemini4hydrogenxhighaistudcodeexec.html</code>
+    </a>
+
+    <a class="card" style="--c:#d35334" href="gemini4neonxhighaistudcodeexec.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">Gemini 4 “Neon”</span><span class="arrow">↗</span></div>
+      <p class="meta">Same ride, warmer ember accents.</p>
+      <div class="chips"><span class="chip">x-high</span><span class="chip">AI Studio</span><span class="chip">code exec</span></div>
+      <code class="file">gemini4neonxhighaistudcodeexec.html</code>
+    </a>
+
+    <a class="card" style="--c:#a7f3d0" href="glm53flashmaxvibe.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">GLM 5.3 Flash</span><span class="arrow">↗</span></div>
+      <p class="meta">Lean and quick — the “pelican express”.</p>
+      <div class="chips"><span class="chip">max</span><span class="chip">Vibe</span></div>
+      <code class="file">glm53flashmaxvibe.html</code>
+    </a>
+
+    <a class="card" style="--c:#bfe3ff" href="glm53maxvibe.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">GLM 5.3</span><span class="arrow">↗</span></div>
+      <p class="meta">Soft daylight palette, easy cruising.</p>
+      <div class="chips"><span class="chip">max</span><span class="chip">Vibe</span></div>
+      <code class="file">glm53maxvibe.html</code>
+    </a>
+
+    <a class="card" style="--c:#f6a24d" href="gpt60solhighbrowser.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">GPT 6.0 “Sol”</span><span class="arrow">↗</span></div>
+      <p class="meta">“Just another day in pelican traffic.”</p>
+      <div class="chips"><span class="chip">high</span><span class="chip">browser</span></div>
+      <code class="file">gpt60solhighbrowser.html</code>
+    </a>
+
+    <a class="card" style="--c:#ce8159" href="gpt61solxhighcodex.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">GPT 6.1 “Sol”</span><span class="arrow">↗</span></div>
+      <p class="meta">Typewriter vibes — “Coasting along, The Pelican Pedal Club”.</p>
+      <div class="chips"><span class="chip">x-high</span><span class="chip">Codex</span></div>
+      <code class="file">gpt61solxhighcodex.html</code>
+    </a>
+
+    <a class="card" style="--c:#aee3ff" href="mistral4largehighvibe.html" target="_blank" rel="noopener">
+      <div class="card-top"><span class="dot"></span><span class="name">Mistral 4 Large</span><span class="arrow">↗</span></div>
+      <p class="meta">The classic: full-viewport animated pelican ride.</p>
+      <div class="chips"><span class="chip">high</span><span class="chip">Vibe</span></div>
+      <code class="file">mistral4largehighvibe.html</code>
+    </a>
+  </main>
+
+  <footer>
+    source on <a href="https://github.com/aufkrawall/pelican">github.com/aufkrawall/pelican</a> ·
+    each file is a self-contained .html — also playable via
+    <a href="https://raw.githack.com/aufkrawall/pelican/main/mistral4largehighvibe.html">raw.githack.com</a>
+  </footer>
+
+</div>
 </body>
 </html>
