@@ -1,6 +1,6 @@
 # pelican
 
-animated svg of a pelican riding a bicycle in a single html file
+"animated svg of a pelican riding a bicycle in a single html file"
 
 ## ▶ Plug & play
 
