@@ -17,32 +17,33 @@
   p.sub { margin: 0 0 2rem; opacity: .7; }
   .grid {
     display: grid; gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     width: min(960px, 100%);
   }
   a.card {
     display: block; padding: 1.25rem 1.5rem;
     background: rgba(255,255,255,.85); border-radius: 14px;
-    text-decoration: none; color: #0b3d91; font-weight: 600;
+    text-decoration: none; color: #0b3d91;
     box-shadow: 0 4px 14px rgba(20,60,120,.12);
     transition: transform .15s ease, box-shadow .15s ease;
-    word-break: break-all;
   }
   a.card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(20,60,120,.2); }
-  a.card span { display: block; margin-top: .4rem; font-weight: 400; font-size: .85rem; opacity: .65; }
+  a.card .name { display: block; font-size: 1.15rem; font-weight: 700; }
+  a.card .meta { display: block; margin-top: .35rem; font-size: .85rem; opacity: .7; }
+  a.card code { display: block; margin-top: .5rem; font-size: .72rem; opacity: .5; word-break: break-all; }
 </style>
 </head>
 <body>
   <h1>🦩 pelican on a bicycle 🚲</h1>
   <p class="sub">single-file animated SVGs — click to open live</p>
   <div class="grid">
-    <a class="card" href="gemini4hydrogenxhighaistudcodeexec.html">gemini4hydrogenxhighaistudcodeexec.html<span>animated svg</span></a>
-    <a class="card" href="gemini4neonxhighaistudcodeexec.html">gemini4neonxhighaistudcodeexec.html<span>animated svg</span></a>
-    <a class="card" href="glm53flashmaxvibe.html">glm53flashmaxvibe.html<span>animated svg</span></a>
-    <a class="card" href="glm53maxvibe.html">glm53maxvibe.html<span>animated svg</span></a>
-    <a class="card" href="gpt60solhighbrowser.html">gpt60solhighbrowser.html<span>animated svg</span></a>
-    <a class="card" href="gpt61solxhighcodex.html">gpt61solxhighcodex.html<span>animated svg</span></a>
-    <a class="card" href="mistral4largehighvibe.html">mistral4largehighvibe.html<span>animated svg</span></a>
+    <a class="card" href="gemini4hydrogenxhighaistudcodeexec.html"><span class="name">Gemini 4 “Hydrogen”</span><span class="meta">x-high reasoning · AI Studio · code exec</span><code>gemini4hydrogenxhighaistudcodeexec.html</code></a>
+    <a class="card" href="gemini4neonxhighaistudcodeexec.html"><span class="name">Gemini 4 “Neon”</span><span class="meta">x-high · AI Studio · code exec</span><code>gemini4neonxhighaistudcodeexec.html</code></a>
+    <a class="card" href="glm53flashmaxvibe.html"><span class="name">GLM 5.3 Flash</span><span class="meta">max · Vibe</span><code>glm53flashmaxvibe.html</code></a>
+    <a class="card" href="glm53maxvibe.html"><span class="name">GLM 5.3</span><span class="meta">max · Vibe</span><code>glm53maxvibe.html</code></a>
+    <a class="card" href="gpt60solhighbrowser.html"><span class="name">GPT 6.0 “Sol”</span><span class="meta">high · browser — “just another day in pelican traffic”</span><code>gpt60solhighbrowser.html</code></a>
+    <a class="card" href="gpt61solxhighcodex.html"><span class="name">GPT 6.1 “Sol”</span><span class="meta">x-high · Codex — “coasting along, Pelican Pedal Club”</span><code>gpt61solxhighcodex.html</code></a>
+    <a class="card" href="mistral4largehighvibe.html"><span class="name">Mistral 4 Large</span><span class="meta">high · Vibe</span><code>mistral4largehighvibe.html</code></a>
   </div>
 </body>
 </html>
