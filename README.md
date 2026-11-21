@@ -15,6 +15,7 @@ GitHub shows `.html` files as source code. To open them rendered in the browser 
 - [**GPT 6.1 "Terra"**](https://aufkrawall.github.io/pelican/gpt61terraxhighcodex.html) — x-high · Codex · warm paper-toned scene · `gpt61terraxhighcodex.html`
 - [**GPT 6.2 "Astra"**](https://aufkrawall.github.io/pelican/gpt62astraxhighcodex.html) — x-high · Codex · “the coastal commute” · `gpt62astraxhighcodex.html`
 - [**GPT 6.2 "Sol"**](https://aufkrawall.github.io/pelican/gpt62solxhighcodex.html) — x-high · Codex · dark-teal night ride · `gpt62solxhighcodex.html`
+- [**DeepSeek 4.1 Flash 1017**](https://aufkrawall.github.io/pelican/deepseek41flash1017maxvibe.html) — max · Vibe · deep-sea gradient night ride · `deepseek41flash1017maxvibe.html`
 - [**Mistral 4 Large**](https://aufkrawall.github.io/pelican/mistral4largehighvibe.html) — high · Vibe · `mistral4largehighvibe.html`
 - or open the [gallery](https://aufkrawall.github.io/pelican/)
 
